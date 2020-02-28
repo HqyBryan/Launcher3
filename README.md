@@ -1,1 +1,1 @@
-# Launcher
+# 基于Android10的Launcher3源码，修改后，在AndroidStudio中编译通过
