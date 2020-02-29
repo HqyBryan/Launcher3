@@ -9,7 +9,7 @@ buildscript {
     }
 }
 
-final String ANDROID_TOP = "${rootDir}/../../.."
+final String ANDROID_TOP = "${rootDir}"
 final String FRAMEWORK_PREBUILTS_DIR = "${ANDROID_TOP}/prebuilts/framework_intermediates/"
 
 apply plugin: 'com.android.application'
@@ -56,7 +56,7 @@ android {
             testApplicationId 'com.android.launcher3.tests'
         }
 
-        withQuickstep {
+        /*withQuickstep {
             dimension "recents"
 
             minSdkVersion 28
@@ -66,7 +66,7 @@ android {
             dimension "recents"
 
             minSdkVersion 28
-        }
+        }*/
 
         withoutQuickstep {
             dimension "recents"
@@ -125,7 +125,7 @@ android {
             java.srcDirs = ['src_ui_overrides']
         }
 
-        withQuickstep {
+        /*withQuickstep {
             res.srcDirs = ['quickstep/res', 'quickstep/recents_ui_overrides/res']
             java.srcDirs = ['quickstep/src', 'quickstep/recents_ui_overrides/src']
             manifest.srcFile "quickstep/AndroidManifest.xml"
@@ -135,7 +135,7 @@ android {
             res.srcDirs = ['quickstep/res', 'go/quickstep/res']
             java.srcDirs = ['quickstep/src', 'go/quickstep/src']
             manifest.srcFile "quickstep/AndroidManifest.xml"
-        }
+        }*/
     }
 }
 
@@ -151,16 +151,16 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:${ANDROID_X_VERSION}"
     implementation "androidx.preference:preference:${ANDROID_X_VERSION}"
     implementation project(':IconLoader')
-    implementation fileTree(dir: "${FRAMEWORK_PREBUILTS_DIR}/libs", include: 'launcher_protos.jar')
+    implementation fileTree(dir: "${ANDROID_TOP}/libs", include: 'launcher_protos.jar')
 
     // Recents lib dependency
-    withQuickstepImplementation fileTree(dir: "${FRAMEWORK_PREBUILTS_DIR}/quickstep/libs", include: 'sysui_shared.jar')
+    //withQuickstepImplementation fileTree(dir: "${ANDROID_TOP}/libs", include: 'sysui_shared.jar')
 
     // Recents lib dependency for Go
-    withQuickstepIconRecentsImplementation fileTree(dir: "${FRAMEWORK_PREBUILTS_DIR}/quickstep/libs", include: 'sysui_shared.jar')
+    //withQuickstepIconRecentsImplementation fileTree(dir: "${ANDROID_TOP}/libs", include: 'sysui_shared.jar')
 
-    // Required for AOSP to compile. This is already included in the sysui_shared.jar
-    withoutQuickstepImplementation fileTree(dir: "${FRAMEWORK_PREBUILTS_DIR}/libs", include: 'plugin_core.jar')
+    // Required for AOSP to compile. This is already included in ANDROID_TOP sysui_shared.jar
+    withoutQuickstepImplementation fileTree(dir: "${ANDROID_TOP}/libs", include: 'plugin_core.jar')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "org.mockito:mockito-core:1.9.5"

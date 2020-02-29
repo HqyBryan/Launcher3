@@ -37,3 +37,7 @@ android {
 dependencies {
     implementation "androidx.core:core:${ANDROID_X_VERSION}"
 }
+
+repositories {
+    google()
+}
